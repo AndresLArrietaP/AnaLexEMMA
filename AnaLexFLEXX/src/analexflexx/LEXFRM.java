@@ -114,7 +114,7 @@ public class LEXFRM extends javax.swing.JFrame {
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
                                 "100"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
                         break;
-                    case Numero: 
+                    case LiteralNumeroEntero: 
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
                                 "300"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
                         break;

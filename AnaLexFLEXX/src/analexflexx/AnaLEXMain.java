@@ -9,7 +9,7 @@ import java.io.File;
  */
 public class AnaLEXMain {
     public static void main(String[] args) {
-        String Ruta="C:/Users/acer/Pictures/Java POO/ExamenFinal_Arrieta_Andres/AnaLexFLEXX/src/analexflexx/LEXFLEX"; //RUTA DE SOURCE PACKAGES (MODIFICAR)
+        String Ruta="C:/Users/acer/Pictures/Java POO/AnalizadorEMMA/AnaLexFLEXX/src/analexflexx/LEXFLEX"; //RUTA DE SOURCE PACKAGES (MODIFICAR)
         generarLexer(Ruta);
     }
     
