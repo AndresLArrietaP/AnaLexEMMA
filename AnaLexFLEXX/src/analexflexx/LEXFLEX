@@ -26,7 +26,7 @@ MUCUCK |
 CTR |
 ARQUI |
 WRITING |
-READING |
+READING |   
 YES |
 NOTY |
 WORK |
@@ -40,16 +40,16 @@ true |
 false |
 
 while {lexeme=yytext(); return Reservadas;}
-{N}{N}{N}{N}{N}{N}{N}{N}{S} {lexeme=yytext(); return DNI;}
+{N}{N}{N}{N}{N}{N}{N}{N}{S} {lexeme=yytext(); return DNI;}  //09897978B
 "_/"{L}({L}|{D})*"\_" {lexeme=yytext(); return Comentario;}
 "__/"{L}({L}|{D})*"\__" {lexeme=yytext(); return Comentario;}
-{N}{N}"M"{N}{N}{N}{N} {lexeme=yytext(); return Matricula1;}
-{L}{N}{N}{N} {lexeme=yytext(); return Matricula2;}
-{N}{N}{N}{N}{N}{N} {lexeme=yytext(); return Matricula3;}
-"CRE:"{N}{N} {lexeme=yytext(); return Credito;}
-"CRE:"{N} {lexeme=yytext(); return Credito;}
+{N}{N}"M"{N}{N}{N}{N} {lexeme=yytext(); return Matricula1;}  //56M6789
+{L}{N}{N}{N} {lexeme=yytext(); return Matricula2;} //B456
+{N}{N}{N}{N}{N}{N} {lexeme=yytext(); return Matricula3;} //123456
+"CRE:"{N}{N} {lexeme=yytext(); return Credito;} //CRE:67
+"CRE:"{N} {lexeme=yytext(); return Credito;} //CRE:8
 
-{espacio} {/*Ignore*/}
+{espacio} {/*Ignore*/} 
 "_/".* {/*Ignore*/}
 "\_".* {/*Ignore*/}
 "__/".* {/*Ignore*/}
@@ -67,16 +67,16 @@ while {lexeme=yytext(); return Reservadas;}
 "~" {return OperadorLogico;}
 "==" {return OperadorRelacion;}
 "!=" {return OperadorRelacion;}
-">" {return OperadorRelacion;}
+">" {return OperadorRelacion;}    
 "<" {return OperadorRelacion;}
-" <= " {return OperadorRelacion;}
+" <= " {return OperadorRelacion;} 
 " >= " {return OperadorRelacion;}
 " <=> " {return OperadorAsignacion;}
 
 {L}({L}|{D})*|"("{espacio}{L}({L}|{D})*{espacio}")" {lexeme=yytext(); return Identificador;}
-"|"{L}({L}|{D})*"|"|"("{espacio}"|"{L}({L}|{D})*"|"{espacio}")" {lexeme=yytext(); return LiteralCadena;}
+"|"{L}({L}|{D})*"|"|"("{espacio}"|"{L}({L}|{D})*"|"{espacio}")" {lexeme=yytext(); return LiteralCadena;}  
 "‘"{S}"’" {lexeme=yytext(); return LiteralCaracter;}
-("(-"{D}+"."{D}+")")|{D}+"."{D}+ {lexeme=yytext(); return LiteralNumeroReal;}
-("(-"{D}+")")|{D}+ {lexeme=yytext(); return LiteralNumeroEntero;}
+("(-"{D}+"."{D}+")")|{D}+"."{D}+ {lexeme=yytext(); return LiteralNumeroReal;} //3.1436563636...
+("(-"{D}+")")|{D}+ {lexeme=yytext(); return LiteralNumeroEntero;} //98
 
  . {return ERROR;}

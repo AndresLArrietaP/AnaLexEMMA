@@ -3,23 +3,52 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package analexflexx;
+
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.*;
+
 /**
  *
  * @author acer
  */
-public class LEXFRM extends javax.swing.JFrame {
+public class LEXFRMArchi extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LEXFRM
-     */
-    public LEXFRM() {
+    JFileChooser seleccionar= new JFileChooser();
+    File Archivo;
+    FileInputStream entrada;
+    FileOutputStream salida;
+    public LEXFRMArchi() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
+    
+    public String AbrirArchivo(File archivo){
+        String documento="";
+        try{
+            entrada=new FileInputStream(archivo);
+            int ascci;
+            while((ascci=entrada.read())!=-1){
+                char caracter=(char)ascci;
+                documento+=caracter;
+            }
+        }catch(Exception e){
+        }   
+        return documento;
+    }
+    
+    public String GuardarArchivo(File archivo,String documento){
+        String mensaje=null;
+        try{
+            salida=new FileOutputStream(archivo);
+            byte[] bytxt=documento.getBytes();
+            salida.write(bytxt);
+            mensaje="Archivo guardado";
+        }catch(Exception e){
+        }
+        return mensaje;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,27 +59,43 @@ public class LEXFRM extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtTexto = new javax.swing.JTextField();
-        btnAnalizar = new javax.swing.JButton();
+        btnAnalizarAr = new javax.swing.JButton();
+        btnImportarAr = new javax.swing.JButton();
+        btnGuardarEdit = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtResultados = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        txtArea = new javax.swing.JTextArea();
+        btnVolverA = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 255));
 
-        txtTexto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtTexto.setText("Escribe aquí");
-
-        btnAnalizar.setBackground(new java.awt.Color(153, 255, 102));
-        btnAnalizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnAnalizar.setText("Analizar texto");
-        btnAnalizar.addActionListener(new java.awt.event.ActionListener() {
+        btnAnalizarAr.setBackground(new java.awt.Color(153, 255, 51));
+        btnAnalizarAr.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
+        btnAnalizarAr.setText("ANALIZAR");
+        btnAnalizarAr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnalizarActionPerformed(evt);
+                btnAnalizarArActionPerformed(evt);
+            }
+        });
+
+        btnImportarAr.setBackground(new java.awt.Color(102, 153, 255));
+        btnImportarAr.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        btnImportarAr.setText("IMPORTAR");
+        btnImportarAr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarArActionPerformed(evt);
+            }
+        });
+
+        btnGuardarEdit.setBackground(new java.awt.Color(255, 204, 204));
+        btnGuardarEdit.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        btnGuardarEdit.setText("GUARDAR");
+        btnGuardarEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarEditActionPerformed(evt);
             }
         });
 
@@ -59,38 +104,39 @@ public class LEXFRM extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(197, 197, 197)
-                .addComponent(btnAnalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtTexto)
-                .addContainerGap())
+                .addGap(65, 65, 65)
+                .addComponent(btnImportarAr)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(btnAnalizarAr, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addComponent(btnGuardarEdit)
+                .addGap(68, 68, 68))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(txtTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAnalizar)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarEdit)
+                    .addComponent(btnAnalizarAr)
+                    .addComponent(btnImportarAr))
+                .addGap(38, 38, 38))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 70));
 
-        jPanel2.setBackground(new java.awt.Color(51, 204, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 255, 204));
 
-        txtResultados.setColumns(20);
-        txtResultados.setRows(5);
-        jScrollPane1.setViewportView(txtResultados);
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
+        jScrollPane1.setViewportView(txtArea);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 153));
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton1.setText("VOLVER");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVolverA.setBackground(new java.awt.Color(255, 255, 153));
+        btnVolverA.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnVolverA.setText("VOLVER");
+        btnVolverA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVolverAActionPerformed(evt);
             }
         });
 
@@ -99,35 +145,74 @@ public class LEXFRM extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(btnVolverA, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(20, 20, 20))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVolverA, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 593, 480));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
+    private void btnVolverAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAActionPerformed
+        Inicio vistaLEXMAN = new Inicio();
+        vistaLEXMAN.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverAActionPerformed
+
+    private void btnImportarArActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarArActionPerformed
+        if(seleccionar.showDialog(null, "Abrir")==JFileChooser.APPROVE_OPTION){
+            Archivo=seleccionar.getSelectedFile();
+            if(Archivo.canRead()){
+                if(Archivo.getName().endsWith("txt")){
+                    String documento=AbrirArchivo(Archivo);
+                    txtArea.setText(documento);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Formato incorrecto");
+                    
+                }
+            }
+        }
+    }//GEN-LAST:event_btnImportarArActionPerformed
+
+    private void btnGuardarEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEditActionPerformed
+        if(seleccionar.showDialog(txtArea, "Guardar")==JFileChooser.APPROVE_OPTION){
+            Archivo=seleccionar.getSelectedFile();
+             if(Archivo.getName().endsWith("txt")){
+                String Documento=txtArea.getText();
+                String mensaje= GuardarArchivo(Archivo,Documento);
+                if(mensaje!=null){
+                    JOptionPane.showMessageDialog(null, mensaje);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Formato incorrecto");
+                } 
+            }else{
+                 JOptionPane.showMessageDialog(null, "Guardado");
+             }
+        }
+    }//GEN-LAST:event_btnGuardarEditActionPerformed
+
+    private void btnAnalizarArActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarArActionPerformed
         File archivo = new File("Alumno.txt");
         PrintWriter escribir;
         try {
             escribir = new PrintWriter(archivo);
-            escribir.print(txtTexto.getText());
+            escribir.print(txtArea.getText());
             escribir.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LEXFRM.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,7 +225,7 @@ public class LEXFRM extends javax.swing.JFrame {
                 Tokens tokens = lexer.yylex();
                 if(tokens == null){
                     resultado+="\n#";
-                    txtResultados.setText(resultado);
+                    txtArea.setText(resultado);
                     return;
                 }
                 switch(tokens){
@@ -212,13 +297,7 @@ public class LEXFRM extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(LEXFRM.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnAnalizarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Inicio vistaLEXMAN = new Inicio();
-        vistaLEXMAN.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAnalizarArActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,31 +316,32 @@ public class LEXFRM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LEXFRM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LEXFRMArchi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LEXFRM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LEXFRMArchi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LEXFRM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LEXFRMArchi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LEXFRM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LEXFRMArchi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LEXFRM().setVisible(true);
+                new LEXFRMArchi().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAnalizar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAnalizarAr;
+    private javax.swing.JButton btnGuardarEdit;
+    private javax.swing.JButton btnImportarAr;
+    private javax.swing.JButton btnVolverA;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtResultados;
-    private javax.swing.JTextField txtTexto;
+    private javax.swing.JTextArea txtArea;
     // End of variables declaration//GEN-END:variables
 }
