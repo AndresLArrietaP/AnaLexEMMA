@@ -1,12 +1,1 @@
-ROOT(){
-	_/Atributos\_
-	NUMBDEC :Result:*
-	
-	_/Objetos\_
-	CRAFT :PaisdeLatam: (|Colombia|, |210|) OF :Pais:*
-	:PaisdeLatam: WITH :Perfil:()*
-	
-	_/Funciones-subprogramas globales\_
-	:Result: <=> :HallarRaizCuadrada:( :Ï: , :Ï: )*
-	WRITING(:Result:)*
-}
+234.8.67.64.786.877.234424.234.234.12

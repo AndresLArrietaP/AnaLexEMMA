@@ -22,6 +22,7 @@ public enum Tokens {
     LiteralCadena,
     LiteralCaracter,
     LiteralNumeroReal,
+    LiteralNumeroReal0,
     LiteralNumeroEntero,
     Comentario,
     Delimitador,

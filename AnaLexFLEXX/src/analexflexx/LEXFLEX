@@ -15,6 +15,7 @@ D=[0-9]+
 N=[0-9]
 Findelinea = \r|\n|\r\n
 Blanco={Findelinea} | [ \t\f]
+("(-""."{D}+")")|"."{D}+=("(-""0""."{D}+")")|"0""."{D}+
 
 Comentario = {comentarioLi} | {comentarioBlo}
 
@@ -76,9 +77,10 @@ comentarioBlo = "__/" ~"\__"
 <YYINITIAL> "null" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
 <YYINITIAL> ":"{L}({L}|{D})*":" {c.linea=yyline; lexeme=yytext(); return Variable;}
 <YYINITIAL> {P}({L}|{D})* {c.linea=yyline; lexeme=yytext(); return Identificador;}
-<YYINITIAL> "|"{L}({L}|{D})* ~"|"} {c.linea=yyline; lexeme=yytext(); return LiteralCadena;} 
-<YYINITIAL> "°"{L}"°" {c.linea=yyline; lexeme=yytext(); return LiteralCaracter;}
+<YYINITIAL> "|"{L}({L}|{D})* ~"|" {c.linea=yyline; lexeme=yytext(); return LiteralCadena;} 
+<YYINITIAL> "'"{L}"'" {c.linea=yyline; lexeme=yytext(); return LiteralCaracter;}
 <YYINITIAL> ("(-"{D}+"."{D}+")")|{D}+"."{D}+ {c.linea=yyline; lexeme=yytext(); return LiteralNumeroReal;}
+<YYINITIAL> ("(-""."{D}+")")|"."{D}+ {c.linea=yyline; lexeme=yytext(); return LiteralNumeroReal0;}
 <YYINITIAL> ("(-"{D}+")")|{D}+ {c.linea=yyline; lexeme=yytext(); return LiteralNumeroEntero;}
 <YYINITIAL> "(" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
 <YYINITIAL> ")" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
@@ -86,11 +88,9 @@ comentarioBlo = "__/" ~"\__"
 <YYINITIAL> "]" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
 <YYINITIAL> "{" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
 <YYINITIAL> "}" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
-<YYINITIAL> "|" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
 <YYINITIAL> "," {c.linea=yyline; lexeme=yytext(); return Delimitador;}
 <YYINITIAL> "*" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
 <YYINITIAL> ";" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
-<YYINITIAL> "'" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
 <YYINITIAL> {Findelinea} {c.linea=yyline; lexeme=yytext(); return Delimitador;}
 <YYINITIAL> {Comentario} {c.linea=yyline; lexeme=yytext(); return Comentario;}
 
