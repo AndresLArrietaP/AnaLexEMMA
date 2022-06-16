@@ -1,1 +1,12 @@
-MUCUCK KAN MARICON 45 + @ NUMB
+ROOT(){
+	_/Atributos\_
+	NUMBDEC :Result:*
+	
+	_/Objetos\_
+	CRAFT :PaisdeLatam: (|Colombia|, |210|) OF :Pais:*
+	:PaisdeLatam: WITH :Perfil:()*
+	
+	_/Funciones-subprogramas globales\_
+	:Result: <=> :HallarRaizCuadrada:( :Ï: , :Ï: )*
+	WRITING(:Result:)*
+}

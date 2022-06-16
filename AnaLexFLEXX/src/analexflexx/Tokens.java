@@ -24,11 +24,7 @@ public enum Tokens {
     LiteralNumeroReal,
     LiteralNumeroEntero,
     Comentario,
-    
-    Matricula1,
-    Matricula2,
-    Matricula3,
-    DNI,
-    Credito,
+    Delimitador,
+    Variable,
     ERROR
 }

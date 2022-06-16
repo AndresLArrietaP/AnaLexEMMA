@@ -221,7 +221,7 @@ public class LEXFRMArchi extends javax.swing.JFrame {
             Reader lector = new BufferedReader(new FileReader("Alumno.txt"));
             Lexer lexer = new Lexer(lector);
             String resultado = "TOKEN"+"\t\t"+"DESCRIPCION"+"\t\t"+"LEXEMA"+"\n";
-            while(true){
+            for(;;){
                 Tokens tokens = lexer.yylex();
                 if(tokens == null){
                     resultado+="\n#";
@@ -231,35 +231,39 @@ public class LEXFRMArchi extends javax.swing.JFrame {
                 switch(tokens){
                     case ERROR:
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
-                                "EL SÍMBOLO NO EXISTE"+ "\n";
+                                "911 (EL SÍMBOLO NO EXISTE)"+ "\n";
                         break;
                     case Identificador: 
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
-                                "100"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                                "500"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case Variable: 
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "501"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case Comentario: 
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "502"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
                         break;
                     case LiteralNumeroEntero: 
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
-                                "300"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                                "512"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case LiteralNumeroReal: 
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "511"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case LiteralCaracter: 
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "520"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case LiteralCadena: 
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "530"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
                         break;
                     case Reservadas:
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
                                 "400"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
-                        break;
-                    case Matricula1:
-                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
-                                "5001"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
-                        break;
-                    case Matricula2:
-                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
-                                "5002"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
-                        break;
-                    case Matricula3:
-                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
-                                "5003"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
-                        break;
-                    case Credito:
-                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
-                                "900"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
                         break;
                     case OperadorIgual:
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
@@ -281,11 +285,34 @@ public class LEXFRMArchi extends javax.swing.JFrame {
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
                                 "204"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
                         break;
-                    case DNI:
+                    case OperadorPotencia:
                         resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
-                                "800"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                                "205"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
                         break;
-                    
+                    case OperadorRaiz:
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "206"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case OperadorResiduo:
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "207"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case OperadorLogico:
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "208"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case OperadorRelacion:
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "211"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case OperadorAsignacion:
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "200"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
+                    case Delimitador:
+                        resultado+= "--------------------------------------------------------------------------------------------------------------"+"\n"+
+                                "308"+"\t\t"+tokens+"\t\t"+lexer.lexeme+ "\n";
+                        break;
                     default:
                         resultado+= "Token: "+ tokens + "\n";
                         break;

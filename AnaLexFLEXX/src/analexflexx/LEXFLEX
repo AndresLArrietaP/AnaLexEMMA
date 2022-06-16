@@ -1,82 +1,99 @@
 package analexflexx;
+import java.io.*;
 import static analexflexx.Tokens.*;
 %%
 %class Lexer
 %type Tokens
+%line
+%column
+%full
+
 L=[a-zA-Z_]+
-S=[a-zA-Z_]
+P=[a-zA-Z]+ 
+S=[a-zA-Z] 
 D=[0-9]+
 N=[0-9]
-espacio=[ ,\t,\r,\n]+
+Findelinea = \r|\n|\r\n
+Blanco={Findelinea} | [ \t\f]
+
+Comentario = {comentarioLi} | {comentarioBlo}
+
+comentarioLi= "_/" ~"\_"
+comentarioBlo = "__/" ~"\__"
+
+
 %{
     public String lexeme;
+    InformacionAnalisis c= new InformacionAnalisis();
 %}
 %%
-LOAD |
-FROM |
-EXPORT |
-ROOT |
-ENTE |
-NUMB |
-NUMBDEC |
-LETTER |
-WORDS |
-CLEVER |
-MUCUCK |
-CTR |
-ARQUI |
-WRITING |
-READING |   
-YES |
-NOTY |
-WORK |
-CHECK |
-FOR |
-back |
-CRAFT |
-OF |
-WITH |
-true |
-false |
 
-while {lexeme=yytext(); return Reservadas;}
-{N}{N}{N}{N}{N}{N}{N}{N}{S} {lexeme=yytext(); return DNI;}  //09897978B
-"_/"{L}({L}|{D})*"\_" {lexeme=yytext(); return Comentario;}
-"__/"{L}({L}|{D})*"\__" {lexeme=yytext(); return Comentario;}
-{N}{N}"M"{N}{N}{N}{N} {lexeme=yytext(); return Matricula1;}  //56M6789
-{L}{N}{N}{N} {lexeme=yytext(); return Matricula2;} //B456
-{N}{N}{N}{N}{N}{N} {lexeme=yytext(); return Matricula3;} //123456
-"CRE:"{N}{N} {lexeme=yytext(); return Credito;} //CRE:67
-"CRE:"{N} {lexeme=yytext(); return Credito;} //CRE:8
+{Blanco}    { /* ignore */ }
+<YYINITIAL> "+" {c.linea=yyline; lexeme=yytext(); return OperadorSuma;}
+<YYINITIAL> "-" {c.linea=yyline; lexeme=yytext(); return OperadorResta;}
+<YYINITIAL> "@" {c.linea=yyline; lexeme=yytext(); return OperadorMultiplicacion;}
+<YYINITIAL> "/" {c.linea=yyline; lexeme=yytext(); return OperadorDivision;}
+<YYINITIAL> "$" {c.linea=yyline; lexeme=yytext(); return OperadorPotencia;}
+<YYINITIAL> "-$-" {c.linea=yyline; lexeme=yytext(); return OperadorRaiz;}
+<YYINITIAL> "#" {c.linea=yyline; lexeme=yytext(); return OperadorResiduo;}
+<YYINITIAL> "&" {c.linea=yyline; lexeme=yytext(); return OperadorLogico;}
+<YYINITIAL> "!!" {c.linea=yyline; lexeme=yytext(); return OperadorLogico;}
+<YYINITIAL> "~" {c.linea=yyline; lexeme=yytext(); return OperadorLogico;}
+<YYINITIAL> "==" {c.linea=yyline; lexeme=yytext(); return OperadorRelacion;}
+<YYINITIAL> "!=" {c.linea=yyline; lexeme=yytext(); return OperadorRelacion;}
+<YYINITIAL> ">" {c.linea=yyline; lexeme=yytext(); return OperadorRelacion;}
+<YYINITIAL> "<" {c.linea=yyline; lexeme=yytext(); return OperadorRelacion;}
+<YYINITIAL> "<=" {c.linea=yyline; lexeme=yytext(); return OperadorRelacion;}
+<YYINITIAL> ">=" {c.linea=yyline; lexeme=yytext(); return OperadorRelacion;}
+<YYINITIAL> "<""="">" {c.linea=yyline; lexeme=yytext(); return OperadorAsignacion;}
+<YYINITIAL> "LOAD" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "FROM" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "EXPORT" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "ROOT" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "ENTE" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "NUMB" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "NUMBDEC" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "LOAD" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "LETTER" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "WORDS" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "CLEVER" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "MUCUCK" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "CTR" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "ARQUI" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "WRITING" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "READING" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "YES" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "NOTY" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "WORK" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "CHECK" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "FOR" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "back" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "CRAFT" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "OF" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "WITH" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "true" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "false" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> "null" {c.linea=yyline; lexeme=yytext(); return Reservadas;}
+<YYINITIAL> ":"{L}({L}|{D})*":" {c.linea=yyline; lexeme=yytext(); return Variable;}
+<YYINITIAL> {P}({L}|{D})* {c.linea=yyline; lexeme=yytext(); return Identificador;}
+<YYINITIAL> "|"{L}({L}|{D})* ~"|"} {c.linea=yyline; lexeme=yytext(); return LiteralCadena;} 
+<YYINITIAL> "°"{L}"°" {c.linea=yyline; lexeme=yytext(); return LiteralCaracter;}
+<YYINITIAL> ("(-"{D}+"."{D}+")")|{D}+"."{D}+ {c.linea=yyline; lexeme=yytext(); return LiteralNumeroReal;}
+<YYINITIAL> ("(-"{D}+")")|{D}+ {c.linea=yyline; lexeme=yytext(); return LiteralNumeroEntero;}
+<YYINITIAL> "(" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> ")" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> "[" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> "]" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> "{" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> "}" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> "|" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> "," {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> "*" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> ";" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> "'" {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> {Findelinea} {c.linea=yyline; lexeme=yytext(); return Delimitador;}
+<YYINITIAL> {Comentario} {c.linea=yyline; lexeme=yytext(); return Comentario;}
 
-{espacio} {/*Ignore*/} 
-"_/".* {/*Ignore*/}
-"\_".* {/*Ignore*/}
-"__/".* {/*Ignore*/}
-"\__".* {/*Ignore*/}
 
-"+" {return OperadorSuma;}
-"-" {return OperadorResta;}
-"@" {return OperadorMultiplicacion;}
-"/" {return OperadorDivision;}
-"$" {return OperadorPotencia;}
-"-$-" {return OperadorRaiz;}
-"#" {return OperadorResiduo;}
-"&" {return OperadorLogico;}
-"!!" {return OperadorLogico;}
-"~" {return OperadorLogico;}
-"==" {return OperadorRelacion;}
-"!=" {return OperadorRelacion;}
-">" {return OperadorRelacion;}    
-"<" {return OperadorRelacion;}
-" <= " {return OperadorRelacion;} 
-" >= " {return OperadorRelacion;}
-" <=> " {return OperadorAsignacion;}
 
-{L}({L}|{D})*|"("{espacio}{L}({L}|{D})*{espacio}")" {lexeme=yytext(); return Identificador;}
-"|"{L}({L}|{D})*"|"|"("{espacio}"|"{L}({L}|{D})*"|"{espacio}")" {lexeme=yytext(); return LiteralCadena;}  
-"‘"{S}"’" {lexeme=yytext(); return LiteralCaracter;}
-("(-"{D}+"."{D}+")")|{D}+"."{D}+ {lexeme=yytext(); return LiteralNumeroReal;} //3.1436563636...
-("(-"{D}+")")|{D}+ {lexeme=yytext(); return LiteralNumeroEntero;} //98
-
- . {return ERROR;}
+ . {c.linea=yyline; lexeme=yytext(); return ERROR;}
